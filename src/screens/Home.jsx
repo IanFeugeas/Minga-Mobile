@@ -4,8 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function HomeScreen() {
 
     const user = {
-        name: 'Julian',
-        lastName: 'Ramos'
+        name: 'Ian Fabricio',
+        lastName: 'Feugeas'
     }
 
     AsyncStorage.setItem('user', JSON.stringify(user))
