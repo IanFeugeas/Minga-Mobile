@@ -1,7 +1,8 @@
-import { Text, View } from "react-native";
+import { Text, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SectionMain from "../components/Hero";
 
-function HomeScreen() {
+function Index() {
 
     const user = {
         name: 'Ian Fabricio',
@@ -13,10 +14,10 @@ function HomeScreen() {
         .catch(err => console.log(err))
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
+        <ScrollView>
+            <SectionMain/>
+        </ScrollView>
     );
 }
 
-export default HomeScreen
+export default Index
