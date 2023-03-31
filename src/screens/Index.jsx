@@ -1,6 +1,7 @@
 import { Text, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SectionMain from "../components/Hero";
+import Register from "./Register"
 
 function Index() {
 
@@ -16,6 +17,7 @@ function Index() {
     return (
         <ScrollView>
             <SectionMain/>
+            <Register/>
         </ScrollView>
     );
 }

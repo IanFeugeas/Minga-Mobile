@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     background:{
         width: windowWidth,
-        height: windowHeight,
+        height: 900,
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
