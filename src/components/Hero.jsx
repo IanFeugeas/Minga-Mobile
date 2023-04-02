@@ -17,7 +17,8 @@ function SectionMain() {
           Explore our varieties
         </Text>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.pButton}>Let's go!</Text>
+        <Text style={styles.pButton} onPress={() => {
+              navigation.navigate("Mangas")}}>Let's go!</Text>
       </TouchableOpacity>
       </View>
       </ImageBackground>

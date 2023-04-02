@@ -19,7 +19,7 @@ export default function Welcome(props) {
     welcome: {
         alignItems: 'center',
         justifyContent: "center",
-        marginTop: 10
+        marginBottom: 15
     },
     titleWelcome: {
       display: "flex",

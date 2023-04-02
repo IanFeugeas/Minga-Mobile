@@ -15,9 +15,10 @@ export default function LogIn() {
 const styles = StyleSheet.create({
   view: {
     display: "flex",
-    gap:30,
-    height: "100%",
+    gap: 40,
+    paddingTop: 180,
+    height: 900,
+    flex: 1,
     backgroundColor: '#FFFFFF',
-    paddingTop: 150
   },
 });

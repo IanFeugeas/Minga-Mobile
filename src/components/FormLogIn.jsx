@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 15,
-    marginTop: 30,
+    marginTop: 50,
     width: "100%",
   },
   fieldset: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   legend: {
     marginLeft: 10,
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 15,
     letterSpacing: 1,
     fontWeight: 500,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     height: 45,
     fontSize: 15,
-    padding: 11,
+    padding: 5,
     borderRadius: 5,
   },
 
