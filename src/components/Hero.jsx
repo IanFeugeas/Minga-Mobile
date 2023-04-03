@@ -1,11 +1,12 @@
 import React from 'react';
 import {ImageBackground ,View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import imageBg from "../../images/Backgroundhero.png"
+import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 function SectionMain() {
+  const navigation = useNavigation()
   return (   
     <View style={styles.sectionMain}>
      <ImageBackground
@@ -17,7 +18,8 @@ function SectionMain() {
           Explore our varieties
         </Text>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.pButton}>Let's go!</Text>
+        <Text style={styles.pButton} onPress={() => {
+              navigation.navigate("Mangas")}}>Let's go!</Text>
       </TouchableOpacity>
       </View>
       </ImageBackground>

@@ -1,27 +1,51 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import tabsActions from "../store/ReloadTabs/actions"
 import google from "../../images/Google.png"
 import arroba from "../../images/arroba.png"
 import lock from "../../images/lock2.png"
 
+const { reloadTabs } = tabsActions
+
 export default function LoginForm() {
     const navigation= useNavigation()
-    const [mail, setEmail] = useState('');         
+    const [email, setEmail] = useState('');         
     const [password, setPassword] = useState('');
+
+    let state = useSelector((store) => store.tabsReducer)
+    let dispatch = useDispatch()
 
     async function handleSubmit() {
         let data = {
-            mail: mail,
+            mail: email,
             password: password
         }
         console.log(data);
         let url = 'https://minga-grupoblanco.onrender.com/api/signin'
+        let admin
+        let author
         try {
-            await axios.post(url, data)
+            await axios.post(url, data).then(res =>{
+              res.data.user.is_admin ? (admin = true) : (admin = false)
+              res.data.user.is_author ? (author = true) : (author = false)
+              AsyncStorage.setItem("token", res.data.token)
+              AsyncStorage.setItem("user",JSON.stringify({
+                id: res.data.user._id,
+                name: res.data.user.name,
+                mail: res.data.user.mail,
+                photo: res.data.user.photo,
+                admin,
+                author
+              }))
+              dispatch(reloadTabs({ state: !state }))
+              setTimeout(() => navigation.navigate("Home"), 1000)
+            })
             console.log('logueado')
-            navigation.navigate("Home");
         } catch (error) {
             console.log(error)
         }
@@ -76,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 15,
-    marginTop: 30,
+    marginTop: 50,
     width: "100%",
   },
   fieldset: {
@@ -114,7 +138,7 @@ const styles = StyleSheet.create({
   },
   legend: {
     marginLeft: 10,
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 15,
     letterSpacing: 1,
     fontWeight: 500,
@@ -125,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     height: 45,
     fontSize: 15,
-    padding: 11,
+    padding: 5,
     borderRadius: 5,
   },
 

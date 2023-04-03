@@ -1,13 +1,13 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import Welcome from "../components/Welcome";
-import FormLogIn from "../components/FormLogIn";
+import Welcome from "./Welcome";
+import LoginForm from "./FormLogIn";
 
 export default function LogIn() {
   return (
     <ScrollView style={styles.view}>
       <Welcome text="Welcome!" />
-      <FormLogIn/>
+      <LoginForm/>
     </ScrollView>
   );
 }
@@ -15,9 +15,10 @@ export default function LogIn() {
 const styles = StyleSheet.create({
   view: {
     display: "flex",
-    gap:30,
-    height: "100%",
+    gap: 40,
+    paddingTop: 180,
+    height: 900,
+    flex: 1,
     backgroundColor: '#FFFFFF',
-    paddingTop: 150
   },
 });

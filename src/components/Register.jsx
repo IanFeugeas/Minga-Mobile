@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import Welcome from "../components/Welcome";
-import FormRegister from "../components/FormRegister";
+import Welcome from "./Welcome";
+import FormRegister from "./FormRegister";
 
 export default function Register({ handleRender }) {
   return (
