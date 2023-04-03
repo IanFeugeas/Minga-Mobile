@@ -1,24 +1,22 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import Welcome from "../components/Welcome";
-import FormLogIn from "../components/FormLogIn";
+import Welcome from "./Welcome";
+import FormRegister from "./FormRegister";
 
-export default function LogIn() {
+export default function Register({ handleRender }) {
   return (
-    <ScrollView style={styles.view}>
+    <ScrollView style={styles.container}>
       <Welcome text="Welcome!" />
-      <FormLogIn/>
+      <FormRegister handleRender={handleRender} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
-    display: "flex",
-    gap: 40,
-    paddingTop: 180,
+  container: {
     height: 900,
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 70
   },
 });

@@ -18,7 +18,7 @@ export default function FormRegister() {
   async function handleSubmit() {
     let data = {
         name: name,
-        email: email,
+        mail: email,
         photo: photo,
         password: password
     }
