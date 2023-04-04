@@ -29,7 +29,17 @@ const read_chapters = createAsyncThunk(
         }
     }
 )
-
+const read_manga = createAsyncThunk(
+    'read_manga',
+    async ({ manga_id, headers }) => {
+        try {
+            let response = await axios.get("https://minga-grupoblanco.onrender.com/api/manga/" + manga_id, headers)
+            return { manga: response.data.manga }
+        } catch (error) {
+            return { manga: [] }
+        }
+    }
+)
 const get_chapter = createAsyncThunk(
     'get_chapter',
     async ({ id }) => {
@@ -56,6 +66,6 @@ const get_chapter = createAsyncThunk(
     }
 )
 
-const actions = { read_chapters, get_chapter }
+const actions = { read_chapters, get_chapter, read_manga }
 
 export default actions

@@ -2,11 +2,12 @@ import { createReducer } from "@reduxjs/toolkit"
 import actions from './actions'
 
 
-const { captureChapter, captureManga } = actions
+const { captureChapter, captureManga, read_chapters } = actions
 
 const initialstate = {
    manga:[],
    chapter:[],
+   chapters: []
 }
 
 const reducer = createReducer(
@@ -18,6 +19,16 @@ const reducer = createReducer(
                 let newState = {
                     ...state,
                     manga: action.payload.manga
+                }
+                return newState
+            }
+        )
+        .addCase(
+            read_chapters.fulfilled,
+            (state, action) => {
+                let newState = {
+                    ...state,
+                    chapters: action.payload.chapters
                 }
                 return newState
             }

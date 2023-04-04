@@ -7,17 +7,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useFocusEffect } from '@react-navigation/native'
 import { ScrollView } from 'react-native-gesture-handler'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import actions from '../store/Detail/actions'
+import actions from '../store/Chapters/actions'
+import Chapters from '../components/Chapters'
 
-const { captureManga } = actions
+const { read_manga } = actions
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
 
 export default function MangasDetails() {
     const route = useRoute()
-    const mangaId = route.params.mangaId
+    const mangaId = route.params.mangaId;
     const dispatch = useDispatch()
-    let manga = useSelector(store => store.manga.manga)
+    const manga = useSelector(store => store.chapters.manga);
+    console.log(manga)
+    console.log(mangaId)
 
     useFocusEffect(React.useCallback(() => {
         async function getData() {
@@ -33,7 +36,7 @@ export default function MangasDetails() {
 
     function getManga(token) {
         let headers = { headers: { 'Authorization': `Bearer ${token}` } }
-        dispatch(captureManga({ manga_id: mangaId, headers: headers }))
+        dispatch(read_manga({ manga_id: mangaId, headers: headers }))
     }
 
   return (
@@ -43,10 +46,16 @@ export default function MangasDetails() {
                     <Image source={{ uri: manga.cover_photo }} style={styles.imgPrincipal} alt={manga.title} />
                     <Text style={styles.mangaTitle}>{manga.title}</Text>
                     <View style={styles.section2}>
-                        <Text style={[styles[`span-${manga.category_id.name}`]]}>{manga.category_id?.name}</Text>
+                        <Text style={[styles[`span-${manga.category_id?.name}`]]}>{manga.category_id?.name}</Text>
                         <Text style={styles.companyName}> Author: {manga.author_id?.name}</Text>
-                    </View>
+                    </View>                 
                 </View>
+                    <View style={styles.viewDesc}>
+                        <Text style={styles.textDesc}> Description: {manga.description}</Text>
+                    </View>
+            </View>
+            <View>
+                <Chapters/>
             </View>
         </ScrollView>
   )
@@ -56,7 +65,7 @@ const styles = StyleSheet.create({
     ViewPrincipal: {
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 50
+        marginTop: 30
     },
     cardDetails:{
         justifyContent: "center",
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
         height: 400,
         marginTop: 30,
         borderWidth: 2,
-        borderColor: "orange",
+        borderColor: "white",
         borderRadius: 16,
         backgroundColor: "black",
         gap: 15
@@ -75,7 +84,9 @@ const styles = StyleSheet.create({
         height: 300,
         marginTop: 5,
         resizeMode: 'cover',
-        borderRadius: 16
+        borderRadius: 16,
+        borderColor: "white",
+        borderWidth: 1
     },
     mangaTitle: {
         color: "white",
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
     section2: {
         display: "flex",
         flexDirection: "row",
-        gap: 160
+        gap: 150
     },
     companyName: {
         color: "white"
@@ -101,4 +112,14 @@ const styles = StyleSheet.create({
     'span-seinen': {
         color: '#FC9C57'
     },
+    viewDesc: {
+        width: "80%",
+        paddingTop: 30,
+        alignItems: "center",
+    },
+    textDesc: {
+        color: "black",
+        fontSize: 15,
+        textAlign: "left"
+    }
 })

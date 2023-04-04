@@ -30,7 +30,7 @@ function Logout() {
       try {
         const token = await AsyncStorage.getItem('token');
         let headers = { headers: { 'Authorization': `Bearer ${token}` } }
-        let url = 'https://minga-grupoblanco.onrender.com/api/signout'
+        let url = 'https://minga-grupoblanco.onrender.com/api/signout/'
         await axios.post(url, "", headers)
         AsyncStorage.removeItem('token')
         AsyncStorage.removeItem('user')
@@ -39,7 +39,7 @@ function Logout() {
         dispatch(mangasClicked({ state: false }))
         dispatch(chapterClicked({ state: false }))
         setLoading(false)
-        setTimeout(() => navigation.navigate('Home'), 700)
+        setTimeout(() => navigation.navigate('Home'), 1000)
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +69,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: "white",
     borderRadius: 16,
-    padding: 5
+    padding: 5,
+    width: "80%",
+    height: 60,
+    marginTop: 550,
+    textAlign: "center"
   }
 })
 
