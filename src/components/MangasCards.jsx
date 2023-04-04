@@ -70,7 +70,7 @@ export default function MangasCards() {
                           </Text>
                         </View>
                         <TouchableOpacity style={[styles[`cardAnchor-${manga.category_id.name}`]]} onPress={(event) => handleRead(event, manga._id)}>
-                          <Text style={styles.read}>Read</Text>
+                          <Text style={styles.read}>Details</Text>
                           </TouchableOpacity>
                       </View>
                     </View>

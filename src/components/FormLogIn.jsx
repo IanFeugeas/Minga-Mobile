@@ -6,27 +6,38 @@ import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import tabsActions from "../store/ReloadTabs/actions"
+import mangasClickActions from '../store/MangasPagination/actions';
+import chapterClickActions from '../store/ChapterClicked/actions';
 import google from "../../images/Google.png"
 import arroba from "../../images/arroba.png"
 import lock from "../../images/lock2.png"
+import { ScrollView } from 'react-native';
+import logo from "../../images/logoWellcome.png"
+import Spinner from 'react-native-loading-spinner-overlay';
+import { Alert } from "react-native"
 
+const { mangasClicked} = mangasClickActions
 const { reloadTabs } = tabsActions
+const { chapterClicked} = chapterClickActions
 
-export default function LoginForm() {
+export default function LoginForm({ setRender }) {
     const navigation= useNavigation()
     const [email, setEmail] = useState('');         
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    let state = useSelector((store) => store.tabsReducer)
+    let state = useSelector((store) => store.tabsReducer.state)
     let dispatch = useDispatch()
 
     async function handleSubmit() {
+        setLoading(true)
+
         let data = {
             mail: email,
             password: password
         }
         console.log(data);
-        let url = 'https://minga-grupoblanco.onrender.com/api/signin'
+        let url = 'https://minga-grupoblanco.onrender.com/api/signin/'
         let admin
         let author
         try {
@@ -43,53 +54,68 @@ export default function LoginForm() {
                 author
               }))
               dispatch(reloadTabs({ state: !state }))
+              dispatch(mangasClicked({ state: false }))
+              dispatch(chapterClicked({ state: false }))
+              setLoading(false)
               setTimeout(() => navigation.navigate("Home"), 1000)
             })
-            console.log('logueado')
+            console.log('Login Succesful')
         } catch (error) {
+            setLoading(false)
             console.log(error)
         }
     }
 
   return (
-    <View style={styles.containerLogIn}>
-      <View style={styles.fieldset}>
-        <Text style={styles.legend}>Email</Text>
-        <View style={styles.legendCont}>
-          <TextInput style={styles.input} id="mail" name="mail" required onChangeText={(inputText => setEmail(inputText))} />
-          <Image style={styles.imagenInput} source={arroba}/>
-        </View>
-        
+    <ScrollView>
+      <View style={styles.welcome}>
+        <View style={styles.titleWelcome}>
+            <Text style={styles.textTitle}>Minga</Text>
+            <Image source={logo} style={styles.logo} />
+        </View> 
+        <Text style={styles.welcomeH2}> Welcome! </Text>
+        <Text style={styles.welcomeText}>Discover manga, manhua and manhwa, track your progress, have fun, read manga</Text>
       </View>
-
-      <View style={styles.fieldset}>
-        <Text style={styles.legend}>Password</Text>
-        <View style={styles.legendCont}>
-          <TextInput style={styles.input} secureTextEntry={true} id="password" name="password" required onChangeText={(inputText => setPassword(inputText))} />
-          <Image style={styles.imagenInput} source={lock}/>
+      <View style={styles.containerLogIn}>
+        <View style={styles.fieldset}>
+          <Text style={styles.legend}>Email</Text>
+          <View style={styles.legendCont}>
+            <TextInput style={styles.input} id="mail" name="mail" required onChangeText={(inputText => setEmail(inputText))} />
+            <Image style={styles.imagenInput} source={arroba}/>
+          </View>
+          
         </View>
-      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Sign in</Text>
-      </TouchableOpacity>
+        <View style={styles.fieldset}>
+          <Text style={styles.legend}>Password</Text>
+          <View style={styles.legendCont}>
+            <TextInput style={styles.input} secureTextEntry={true} id="password" name="password" required onChangeText={(inputText => setPassword(inputText))} />
+            <Image style={styles.imagenInput} source={lock}/>
+          </View>
+        </View>
 
-      <View style={styles.divGoogle}>
-        <TouchableOpacity style={styles.button2} onPress={() => {}}>
-          <Image style={styles.googleImg} source={google} />
-          <Text style={styles.buttonText2}>Sign in with Google</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Sign in</Text>
         </TouchableOpacity>
-      </View>
 
-      <View style={styles.parrafosForm}>
-        <Text>
-        You don't have an account yet?
-          <Text style={styles.parrafosFormText} onPress={() => {
-              navigation.navigate("Register");
-            }}> Sign up</Text> 
-        </Text>
+        <View style={styles.divGoogle}>
+          <TouchableOpacity style={styles.button2} onPress={() => {}}>
+            <Image style={styles.googleImg} source={google} />
+            <Text style={styles.buttonText2}>Sign in with Google</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.parrafosForm}>
+          <Text>
+          You don't have an account yet?
+            <Text style={styles.parrafosFormText} onPress={() => {
+                setRender("Register");
+              }}> Sign up</Text> 
+          </Text>
+        </View>
       </View>
-    </View>
+      <Spinner visible={loading}/>
+    </ScrollView>
   );
 }
 
@@ -210,4 +236,37 @@ const styles = StyleSheet.create({
     color: "#ff8c00",
     fontWeight: 700,
   },
+  welcome: {
+    alignItems: 'center',
+    justifyContent: "center",
+    marginBottom: 15,
+    marginTop: 100
+
+},
+titleWelcome: {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 10,
+},
+logo: {
+},
+textTitle: {
+  color: "#ff8c00",
+  fontSize: 40,
+  paddingBottom: 6
+},
+welcomeH2: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+    textAlign: 'center',
+},
+welcomeText: {
+    fontSize: 16,
+    marginTop: 20,
+    textAlign: 'center',
+    marginHorizontal: 20,
+}
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text, View, StyleSheet } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
@@ -7,7 +7,7 @@ import SectionMain from "../components/Hero";
 import Form from "./Form"
 
 export default function Index() {
-    let state = "register"
+    let state = "Register"
     let [token, setToken] = useState("")
 
     useFocusEffect(React.useCallback(() =>{

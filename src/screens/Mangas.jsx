@@ -13,7 +13,7 @@ export default function Mangas() {
     <ScrollView>
         <MangasUp/>
         <ScrollView style={styles.sectionCards}>
-            <Text style={{paddingBottom: 30, fontWeight: 'bold', fontSize: 25}}>Explore</Text>
+            <Text style={styles.explore}>Explore</Text>
             <MangasCategories/>
             <MangasCards/>
         </ScrollView>
@@ -28,7 +28,15 @@ const styles = StyleSheet.create({
     width: '100%',
     minHeight: windowHeight,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
+    borderRadius: 40,
+    marginTop: -80
+  },
+  explore:{
+     marginLeft: 150,
+     marginTop: 10,
+     marginBottom: 10,
+     fontWeight: 'bold',
+     fontSize: 25,
   }
 
 })

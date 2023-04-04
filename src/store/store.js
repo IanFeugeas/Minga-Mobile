@@ -17,6 +17,9 @@ import reactionsReducer from './Reactions/reducer'
 import favouritesMangasReducer from './FavouritesMangas/reducer'
 import renderCommentsModal from './RenderCommentsModal/reducer'
 import getComents from './Comments/reducer'
+import mangasClickReducer from "./MangasPagination/reducer"
+import tabsReducer from './ReloadTabs/reducer'
+import chapterClickReducer from './ChapterClicked/reducer'
 
 const store = configureStore({
     reducer: {
@@ -37,7 +40,11 @@ const store = configureStore({
         reactions: reactionsReducer,
         favouritesMangas: favouritesMangasReducer,
         commentsModal: renderCommentsModal,
-        comments: getComents
+        comments: getComents,
+        mangasPagination: mangasClickReducer,
+        tabsReducer : tabsReducer,
+        chapterClickReducer: chapterClickReducer
+
     }
 })
 

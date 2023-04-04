@@ -7,6 +7,8 @@ import arroba from "../../images/arroba.png"
 import photo1 from "../../images/camera2.png"
 import pass from "../../images/lock2.png"
 import google from "../../images/Google.png"
+import { Alert } from "react-native"
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function FormRegister() {
   const [name, setName] = useState('');     
@@ -14,8 +16,11 @@ export default function FormRegister() {
   const [photo, setPhoto] = useState('');     
   const [password, setPassword] = useState('');
   const navigation= useNavigation()
+  const [loading, setLoading] = useState()
 
   async function handleSubmit() {
+    setLoading(true)
+
     let data = {
         name: name,
         mail: email,
@@ -23,12 +28,21 @@ export default function FormRegister() {
         password: password
     }
     console.log(data);
-    let url = 'https://minga-grupoblanco.onrender.com/api/signup'
+    let url = 'https://minga-grupoblanco.onrender.com/api/signup/'
     try {
         await axios.post(url, data)
         console.log('creado')
+        setTimeout(() =>{
+          setLoading(false);
+        }, 3000)
+        navigation.navigate("Login")
+        Alert.alert(
+          "Welcome to Minga!",
+          "Account created successfully"
+        )
     } catch (error) {
         console.log(error)
+        setLoading(false)
     }
 }
   
@@ -92,6 +106,7 @@ export default function FormRegister() {
             }}> Home</Text> 
         </Text>
       </View>
+      <Spinner visible={loading}/>
     </View>
   );
 }
